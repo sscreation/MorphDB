@@ -1,0 +1,40 @@
+
+ Block manager is an innovative library which manages on-disk
+ blocks inside a file and provides a very simple interface to be used
+ for variety of on-disk datastructures. 
+ 
+ It makes writing on-disk based datastructures extremely  easy.
+ And lets the developers worry about only implementing the data structure
+ rather than on disk data block management.
+ 
+ Provides BlockMgrDiskPtr which behaves almost like in-memory pointer
+ Makes translating an in-memory datastructure to become on-disk data
+ structure very easy.
+ For e.g. take a look at our samples/diskList.c to see a on-disk circurlar
+ linked list and how much the code resembles to the in-memory implentation
+ of a linked list.
+
+
+ Complex data structures like B+Tree or a SkipList database on-disk
+ could be written without worrying block management aspects like  
+       - Finding a free block in the file 
+       - Freeing a used block 
+       - Expanding existing block to accommodate the datastructure 
+       etc.
+       - Data integrity
+       - And transaction implementation
+
+
+Features.
+       - block management
+         -- automatically allocate blocks of various block sizes.
+         -- free blocks
+       - Range of block sizes from (128 bytes to 4 MB blocks) instead
+         of fixed block size.
+         - This helps in managing various sizes of data 
+       - Automatic de-fragmentation of data.
+         - de-fragments the data when the link count for a data exceeds the preset max links
+         - data will be automatically defragmented and new bigger blocks
+         - will be found.
+       - Data integrity check through check sum verification
+       - ACID compliance through transactions
