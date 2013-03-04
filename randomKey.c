@@ -17,30 +17,41 @@
     along with MorphDB.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __BMGRERROR_DEF_H__
-#define __BMGRERROR_DEF_H__
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <assert.h>
 
-#define True 1
-#define False 0
+static int fd;
+char* buf;
+static int keySize;
+static int keyIndex;
 
-typedef enum BlockMgrError {
-   BLOCKMGR_OK=0,
-   BLOCKMGR_IO_ERR,
-   BLOCKMGR_FILE_NOT_FOUND,
-   BLOCKMGR_INVALID_MAGIC,
-   BLOCKMGR_INT_ERROR,
-   BLOCKMGR_BLOCK_TOO_BIG,
-   BLOCKMGR_DATA_TOO_BIG,
-   BLOCKMGR_INVALID_BLOCK_SIZE,
-   BLOCKMGR_NO_MEMORY,
-   BLOCKMGR_TRANSAC_EXISTS,
-   BLOCKMGR_NO_TRANSAC,
-   BLOCKMGR_TRANSAC_REPLAY_FAILED,
-   BLOCKMGR_TRANSAC_NOT_COMMITTED,
-   BLOCKMGR_CHECKSUM_ERR,
-   BLOCKMGR_CORRUPT_DATA,
-   BLOCKMGR_LOCK_FAILED,
-} BlockMgrError;
+int InitRand(char* fileName,int kSize) {
+   fd = open(fileName,O_RDONLY);
+   keySize = kSize;
+   assert(fd > 0);
+   return 0;
+}
 
+int GetKey(char* buf, int *len) {
+   if (fd) {
+      *len = read(fd,buf,keySize);
+   } else {
+      *len =snprintf(buf,1024,"KEY in hex %x",keyIndex);
+      keyIndex++;
+   }
+   return 0;
+}
 
-#endif
+int GetRandKey(char* buf,int* len) {
+   if (fd) {
+      *len = pread(fd,buf,keySize,(rand()*keySize)% 80*1024*1024);
+   } else {
+      *len = (int)snprintf(buf,1024,"KEY in hex %x",rand());
+   }
+   return 0;
+}
