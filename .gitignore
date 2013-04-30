@@ -1,0 +1,9 @@
+*~
+*.[oa]
+*.so
+libs/*
+include/*
+cscope*
+btreetest
+testblockmgr
+testmorphbtree

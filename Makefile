@@ -1,5 +1,5 @@
 CC      := gcc
-CFLAGS  := -fPIC -g -I./include -Werror=implicit-function-declaration -Wall  -O2 
+CFLAGS  := -fPIC -g -I./include -Werror=implicit-function-declaration -O2 
 LDFLAGS := -L./libs
 export CFLAGS
 all:libs libblockmgr.a libmorphdb.so libmorphdb.a btreetest testmorphbtree testblockmgr
