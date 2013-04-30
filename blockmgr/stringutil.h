@@ -45,6 +45,9 @@ typedef struct BinaryStr{
    uint32_t len;
 } BinaryStr;
 
+typedef BinaryStr BTreeKey;
+typedef BinaryStr BTreeValue;
+
 typedef struct String {
    uint32_t len;
    uint32_t curLen;

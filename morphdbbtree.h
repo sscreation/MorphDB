@@ -30,9 +30,6 @@
 #define MORPHDB_TREE_MAGIC 0x12345678
 #pragma pack(1)
 
-typedef BinaryStr BTreeKey;
-typedef BinaryStr BTreeValue;
-
 typedef struct BTreeNodePtr{
    struct BTreeNode *left;
    struct BTreeNode *right;

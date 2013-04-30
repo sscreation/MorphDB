@@ -21,13 +21,6 @@
 #define __B_TREE_KEY_OPS_H__
 #include "stringutil.h"
 
-typedef BinaryStr BTreeKey;
-/*typedef struct BTreeValue {
-   int value;
-}BTreeValue;*/
-
-typedef BinaryStr BTreeValue;
-
 typedef int (*BTreeKeyCompareFn)(BTreeKey *key1,BTreeKey* key2);
 typedef void (*BTreeKeyPrintFn)(BTreeKey* key);
 typedef uint8_t (*BTreeKeyCopyFn)(BTreeKey* dst,BTreeKey* src,uint8_t new);

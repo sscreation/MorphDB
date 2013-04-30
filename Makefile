@@ -1,8 +1,8 @@
 CC      := gcc
-CFLAGS  := -fPIC -g -I./include -Werror=implicit-function-declaration  -O2
+CFLAGS  := -fPIC -g -I./include -Werror=implicit-function-declaration -Wall  -O2 
 LDFLAGS := -L./libs
 export CFLAGS
-all:libblockmgr.a libmorphdb.so libmorphdb.a btreetest testmorphbtree testblockmgr sl
+all:libs libblockmgr.a libmorphdb.so libmorphdb.a btreetest testmorphbtree testblockmgr
 
 %.o: %.c Makefile
 	$(CC) -c -o $@ $< $(CFLAGS) $(CLIBFLAGS)
@@ -18,7 +18,10 @@ libmorphdb.a:morphdbbtree.o hash.o hash.h libblockmgr.a btreekeyops.o morphdb.o
 	ar rcs libmorphdb.a morphdbbtree.o hash.o btreekeyops.o morphdb.o
 	cp libmorphdb.a ./libs
 
-libmorphdb.so:morphdbbtree.o hash.o hash.h libblockmgr.a btreekeyops.o morphdb.o
+libs:
+	mkdir -p ./libs
+
+libmorphdb.so:morphdbbtree.o hash.o hash.h libblockmgr.a btreekeyops.o morphdb.o libs
 	gcc -shared -o libmorphdb.so morphdbbtree.o hash.o btreekeyops.o morphdb.o $(LDFLAGS) -lblockmgr
 	cp libmorphdb.so ./libs
 

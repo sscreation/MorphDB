@@ -29,7 +29,6 @@
 #define BlockMgrIsNullPtr(ptr) ((ptr)->offset ==0)
 #define CEIL(a,b) ((a)%(b) == 0 ? (a)/(b) : ((a)/(b))+1)
 
-typedef BinaryStr BTreeValue;
 #pragma pack(1)
 // Ondisk structures go here.
 
